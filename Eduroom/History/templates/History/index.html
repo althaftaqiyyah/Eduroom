@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}| History</title>
+
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+
+</head>
+<body>
+    <h1>Histoy Pengajuan Peminjaman Ruangan</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Ruangan </th>
+                <th>Tanggal Pengajuan</th>
+                <th>Tanggal Peminjaman</th>
+                <th>Waktu Mulai</th>
+                <th>Waktu Selesai</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+                <th>Hapus</th>
+                <th>Ubah</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for hist in history %}
+                <tr>
+                    <td>{{hist.idRuangan}}</td>
+                    <td>{{hist.Tanggal_Pengajuan}}</td>
+                    <td>{{hist.Tanggal_Penggunaan}}</td>
+                    <td>{{hist.Waktu_Mulai}}</td>
+                    <td>{{hist.Waktu_Selesai}}</td>
+                    <td>{{hist.status}}</td>
+                    <td>{{hist.Keterangan}}</td>
+                    <td><a href="{% url 'delete' hist.id %}">Hapus</a></td>
+                    <td><a href="{% url 'update' hist.id %}">update</a></td>
+                </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+        
+    
+    <button><a href="/Dashboard/">Kembali</a></button>
+</body>
+</html>

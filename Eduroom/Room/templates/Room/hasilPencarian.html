@@ -1,0 +1,60 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} | Room </title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <form method="get" action="{% url 'hasilPencarian' %}">
+            {% csrf_token %}
+            <input type="text" name="query" placeholder="Masukkan ID Ruangan"  value="{{ query }}"> <!-- Tambahkan atribut name="query" dan value="{{ query }}" -->
+            <button type="submit">Cari</button>
+        </form>
+     
+        <h1>Silahkan Pilih Ruangan Untuk Direservasi</h1>
+        {% if queryset %}
+            {% for reservasi in queryset %}
+                <div class="card">
+                    <img src="{% load static %}{{ reservasi.Foto }}" />
+                    <h2>{{ reservasi.IdRuangan }}</h2>
+                    <p>{{ reservasi.NamaRuangan }}</p>
+                    <a class="link" href="{% url 'detailRuangan' %}?IdRuangan={{ reservasi.IdRuangan }}">Lihat Detail Ruangan</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Tidak ada hasil yang ditemukan.</p> <!-- Ubah dari <li> menjadi <p> -->
+        {% endif %}
+        <a class="link" href="/Room/">Kembali</a>
+    </div>
+    
+</body>
+</html>
