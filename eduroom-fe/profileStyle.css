@@ -1,0 +1,220 @@
+:root {
+    --white: #F4F2EF;
+    --light-blue: #94B6EF;
+    --blue: #213E60;
+    --peach: #DFAEA1;
+    --muted-pink: #895159;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: "image/bg.png";
+    background: var(--blue);
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: var(--blue);
+    text-align: center;
+}
+
+/* Profile picture */
+.pict {
+    text-align: center;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--light-blue);
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--light-blue);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--blue);
+    background-color: var(--white);
+    transition: border-color 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--peach);
+}
+
+/* Button styling */
+.confirm {
+    text-align: center;
+}
+
+.btn-a, .btn-b {
+    padding: 15px 30px;
+    margin: 0 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    font-family: "Poppins", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.btn-a {
+    background-color: var(--blue);
+    color: var(--white);
+
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-a:active, .btn-b:active {
+    transform: scale(0.96);
+}
+
+.btn-b {
+    background-color: #c8c8c8;
+    color: var(--blue);
+}
+
+.btn-a:hover, .btn-b:hover {
+    background-color: var(--light-blue);
+    color: var(--blue);
+}
+
+/* Error messages */
+.errors {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0;
+    color: var(--muted-pink);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.errors li {
+    margin: 10px 0;
+}
+
+.errors li.invalid {
+    color: var(--muted-pink);
+}
+
+.errors li.valid {
+    color: var(--light-blue);
+}
+
+/*pict button choose file*/
+
+.pict {
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+.pict img {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%; 
+    margin-bottom: 20px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.pict-media {
+    display: flex; 
+    justify-content: center; 
+}
+
+.pict-media .btn {
+    margin-right: 10px; 
+}
+
+.account-settings-fileinput {
+    display: none; 
+}
+
+.account-settings-fileinput + label {
+    
+    padding: 10px 20px; 
+    border: 2px solid var(--blue); 
+    border-radius: 5px; 
+    color: var(--blue); 
+    cursor: pointer; 
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; 
+}
+
+.account-settings-fileinput + label:hover {
+    background-color: var(--blue); 
+    color: var(--white); 
+}
+
+.btn-reset {
+
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    color: var(--white); 
+    background-color: var(--peach); 
+    cursor: pointer; 
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; 
+    font-family: "Poppins", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.btn-reset:hover {
+    background-color: var(--muted-pink); 
+}
+
+.btn-default {
+    color: #333;
+    background-color: #c8c8c8;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-default:hover {
+    color: #fff;
+    background-color: #ccc;
+}
+

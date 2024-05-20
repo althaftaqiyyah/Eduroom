@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Secular+One&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="profileStyle.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Account Settings</h1>
+        <div class="pict">
+            <form action="#">
+                <img src="image/profile.png" alt="">
+                <div class="pict-media">
+                    <input type="file" class="account-settings-fileinput" id="file-input">
+                    <label class="btn btn-outline-primary" for="file-input">Choose File</label>
+                    &nbsp;
+                    <button type="button" class="btn btn-default md-btn-flat">Reset</button>
+                </div>
+            </form>
+        </div>
+        
+
+        <div class="profile">
+            <form action="#">
+                <div class="form-group">
+                    <label class="form-label">SID</label>
+                    <input type="text" class="form-control mb-1" value="G6401211005">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" value="Nabila Elora">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">E-mail</label>
+                    <input type="text" class="form-control mb-1" value="nabila@mail.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Current password</label>
+                    <input type="password" class="form-control" id="current-password">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">New password</label>
+                    <input type="password" class="form-control" id="new-password">
+                    <div class="errors">
+                        <li id="length" class="invalid">at least 8 characters</li>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Repeat new password</label>
+                    <input type="password" class="form-control" id="repeat-new-password" minlength="8">
+                </div>
+                
+            </form>
+        </div>
+
+        <div class="confirm">
+            <button type="button" class="btn-a">Save Changes</button>
+            <button type="button" class="btn-b">Cancel</button>
+        </div>
+    </div>
+    <script src="profileJS.js"></script>
+</body>
+</html>
