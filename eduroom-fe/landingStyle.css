@@ -1,0 +1,357 @@
+:root{
+    --white: #F4F2EF;
+    --light-blue: #94B6EF;
+    --blue: #213E60;
+    --peach: #DFAEA1;
+    --muted-pink: #895159;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.wrapper {
+    max-width: 1134px;
+    margin: 0 auto;
+}
+
+/*buttons
+.btn {
+    padding: 16px 32px;
+    border-radius: 24px;
+    color: var(--white);
+    display: inline-block;
+    font-size:20px;
+    font-weight: 700;
+    background: var(--blue);
+    text-decoration: none;
+    position: relative;
+    box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.25);
+    margin-top: 20px;
+}
+*/
+
+.btn-start {
+    padding: 16px 32px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: var(--blue);
+    display: inline-block;
+    background: var(--light-blue);
+    font-size:20px;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    transition-property: box-shadow, transform;
+}
+
+.btn-start:hover, .btn-start:focus, .btn-start:active{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.btn-start:hover {
+    background: var(--blue);
+    color: var(--white);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+
+/*header*/
+header {
+    background: var(--white);
+    height: 100vh;
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 1134px;
+    top: 20px;
+    z-index: 100;
+    transition: all 700ms ease;
+    height: 70px;
+}
+
+/*nav.scrolled {
+    background-color: var(--white);
+    box-shadow: 0px 16px 14px -8px rgba(0, 0, 0, 0.3);
+    border-radius: 20px 20px 20px 20px;
+    padding: 12px;
+    height: 70px;
+
+}
+*/
+
+nav .logo {
+    width: 600px;
+    height: 99px;
+    flex-shrink: 0;
+    align-items: center;
+    top: -10px; 
+}
+
+nav .logo img {
+    width: 100px;
+    max-width: 100%;
+    height: auto;
+    flex-shrink: 0;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    list-style: none;
+    margin: 0;
+}
+
+nav ul li a {
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 6px 15px;
+    color: var(--blue);
+    border-radius: 20px;
+}
+
+nav ul li a:hover {
+    background: var(--blue);
+    color: var(--white);
+}
+
+/*hero*/
+.hero-section {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 25px;
+}
+
+.hero-section .left h1 {
+    color: var(--blue);
+    font-family: "Secular One", sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 125%;
+    margin-bottom: 0;
+    width: 350px;
+}
+
+.hero-section .left p {
+    color: #545454;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    width: 400px;
+}
+
+.hero-section .right img {
+    max-width: 100%;
+    height: 513px;
+    align-self: flex-end;
+    vertical-align: middle;
+}
+
+/* layer 2*/
+.about {
+    background: #213E60;
+    height: 100vh;
+}
+
+.about .wrapper {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+}
+
+h2 {
+    color: var(--white);
+    font-family: "Secular One", sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+
+.about .right p {
+    color: var(--white);
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 200%;
+    width: 500px;
+    margin: 15px 0px;
+}
+
+.about .left img {
+    width: 450px;
+    max-width: 100%;
+    height: 500px;
+    flex-shrink: 0;
+    margin-top: 60px;
+}
+
+/* layer 3*/
+
+h2.dark {
+    color: var(--blue);
+    text-align: center;
+}
+
+.preview {
+    background: var(--white);
+    padding: 60px 0px;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.preview-cards {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-around;
+    gap: 1rem; 
+}
+
+.preview-card {
+    width: 280px;
+    height: 360px;
+    padding: 1rem;
+    background: var(--white);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+    transition: 0.5s ease-in-out;
+}
+
+.preview-card:hover {
+    transform: translateY(20px);
+}
+
+.preview-card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(33, 62, 96, 0.70), rgba(244, 242, 239, 0.70));
+    z-index: 2;
+    transition: 0.5s all;
+    opacity: 0;
+}
+
+.preview-card:hover::before{
+    opacity: 1;
+}
+
+.preview-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.preview-card .info {
+    position: relative;
+    z-index: 3;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.5s all;
+}
+
+.preview-card:hover .info {
+    opacity: 1;
+    transform: translateY(30px);
+}
+
+.preview-card .info h3 {
+    margin: 0;
+}
+
+.preview-card .info p {
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.preview-card .info .btn {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: var(--white);
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+}
+
+.preview-card .info .btn:hover {
+    box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+}
+
+/*footer*/
+
+footer {
+    background: var(--blue);
+    color: var(--white);
+    text-align: center;
+    padding: 70px 0px;
+} 
+
+/*animation*/
+
+.anim {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: moveup 0.5s linear forwards;
+}
+@keyframes moveup{
+    100%{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.anima {
+    opacity: 0;
+    transform: translateX(-30px); 
+    animation: moveInRight 0.5s linear forwards; 
+}
+
+@keyframes moveInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0); 
+    }
+}
