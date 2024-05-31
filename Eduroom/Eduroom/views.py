@@ -63,6 +63,13 @@ def register(request):
                 return redirect(request, '/login/', context)
             else:
                 raise e
-        
-    
-    return render(request, 'regist.html')
+    username_login = request.POST.get('NIM')
+    password_login = request.POST.get('Password')
+    user = authenticate(request, username=username_login, password=password_login)
+    if user is not None:
+        login(request, user)
+        return redirect('/Dashboard/')
+    else:
+            
+        return redirect('login')
+    return redirect('Dashboard')
