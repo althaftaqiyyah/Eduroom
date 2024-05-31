@@ -6,8 +6,8 @@ class Reservasi(models.Model):
     idRuangan = models.CharField(max_length=200)
     Tanggal_Pengajuan = models.DateTimeField(auto_now_add=True)
     Tanggal_Penggunaan = models.DateField()
-    Waktu_Mulai = models.DurationField()
-    Waktu_Selesai = models.DurationField()
+    Waktu_Mulai = models.TimeField()
+    Waktu_Selesai = models.TimeField()
     status_choices = [
         ('Kosong', 'Kosong'),
         ('Dalam proses', 'Dalam proses'),

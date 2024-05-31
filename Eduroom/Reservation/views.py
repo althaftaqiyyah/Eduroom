@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from .forms import Reservasi_form
 from .models import Reservasi
 from Room.models import Room
+from django.core.mail import send_mail
 
 def index(request, room_id):
     
@@ -26,6 +27,8 @@ def index(request, room_id):
                 Waktu_Mulai=Waktu_Mulai,
                 Waktu_Selesai= Waktu_Selesai
             )
+            
+      
             return HttpResponseRedirect('/History/')  # Redirect to History page after successfully creating reservation
     else:
         form_reservasi = Reservasi_form(initial=data)  # Initialize form if request method is not POST

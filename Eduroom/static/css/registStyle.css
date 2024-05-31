@@ -1,0 +1,126 @@
+:root {
+    --white: #F4F2EF;
+    --light-blue: #94B6EF;
+    --blue: #213E60;
+    --peach: #DFAEA1;
+    --muted-pink: #895159;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: url('image/bgsign.png') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Poppins", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.container {
+    position: relative;
+    width: 400px; /* Adjusted width to make the box narrower */
+    max-width: 100%;
+    min-height: 550px;
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); 
+    display: flex; /* Centering the container */
+    align-items: center; /* Centering the container */
+    justify-content: center; /* Centering the container */
+}
+
+.sign-in {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px; /* Adjusted padding */
+    height: 100%;
+    text-align: center;
+}
+
+h1 {
+    font-weight: bold;
+    margin: 0;
+    color: var(--blue);
+}
+
+p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 15px 0 20px;
+}
+
+input {
+    background: #eee;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+button {
+    color: var(--white);
+    background: var(--blue);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 55px;
+    margin: 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.90);
+}
+
+.errors {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+    color: var(--muted-pink);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.errors li {
+    margin: 5px 0;
+}
+
+.errors li.invalid {
+    color: var(--muted-pink);
+}
+
+.errors li.valid {
+    color: var(--light-blue);
+}

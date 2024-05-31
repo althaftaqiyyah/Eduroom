@@ -1,6 +1,11 @@
-from django.shortcuts import render, HttpResponseRedirect
-from User.models import user 
+from django.shortcuts import render, HttpResponseRedirect,redirect
+from User.models import user as userProfile
 from .forms import *
+from django.contrib.auth.models import User 
+from django.contrib.auth import login , authenticate
+from django.contrib.auth.hashers import make_password
+from django.db import IntegrityError
+
 
 def index(request):
     context ={
@@ -9,33 +14,55 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def login(request):
-    form_login = Login()
+def user_login(request):
     context = {
-        'title':'Login',
-        'form_login':form_login
+        'title': 'Login',
     }
+    
+    if request.method == "POST":
+        username_login = request.POST.get('NIM')
+        password_login = request.POST.get('Password')
+        user = authenticate(request, username=username_login, password=password_login)
+        print(user)
+        if user is not None:
+            login(request, user)
+            return redirect('/Dashboard/')
+        else:
+            
+            return redirect('login')
+    
     return render(request, 'login.html', context)
-
+    
 
 def register(request):
-    form_register = Register()
-    user_model = user()
-    
-    context = {
-        'title': 'Register',
-        'form_register' : form_register
-    } 
-    print(request.method)
     if request.method == 'POST':
-        user.objects.create(
-            Username = request.POST.get('Username'),
-            Email = request.POST.get('Email'),
-            Password = request.POST.get('Password'),
-            Nama  = request.POST.get('Nama'),
-            NIM = request.POST.get('NIM'),
-            departemen = request.POST.get('departemen'),
-            No_handphone = request.POST.get('No_handphone')
-        )
-        return HttpResponseRedirect('/login/')
-    return render(request, 'register.html', context=context)
+        password = request.POST.get('Password')
+        email = request.POST.get('Email')
+        nama = request.POST.get('Nama')
+        nim = request.POST.get('NIM')
+        
+        try:
+            # Buat objek UserProfile dan simpan ke database
+            user_profile = userProfile.objects.create(
+                Email=email,
+                Password=make_password(password),
+                Nama=nama,
+                NIM=nim,
+            )
+            
+            # Buat objek User untuk autentikasi dan simpan ke database
+            user = User.objects.create_user(username=nim, password=password)
+        
+        except IntegrityError as e:
+            # Tangani jika username sudah ada
+            if 'UNIQUE constraint failed: auth_user.username' in str(e):
+                # Tambahkan pesan error untuk ditampilkan di template
+                context = {
+                    'error': 'Username (NIM) sudah ada. Silakan gunakan NIM lain.',
+                }
+                return redirect(request, '/login/', context)
+            else:
+                raise e
+        
+    
+    return render(request, 'regist.html')
