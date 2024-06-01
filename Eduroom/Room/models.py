@@ -6,7 +6,7 @@ class Room(models.Model):
     NamaRuangan = models.CharField(max_length=100)
     Kapasitas = models.IntegerField()
     Lokasi = models.TextField(max_length=200)
-    Foto = models.ImageField(upload_to='Room/static/img')
+    Foto = models.ImageField(upload_to='Room')
     
     def __str__(self):
         return "{}".format(self.IdRuangan)

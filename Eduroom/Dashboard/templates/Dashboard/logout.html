@@ -1,13 +1,108 @@
 <!DOCTYPE html>
-<html>
-    <head>
-
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Confirmation</title>
+    <style>
+        :root {
+            --primary: #eeeeee;
+            --secondary: #227c70;
+            --green: #82cd47;
+            --secondary-light: rgb(34, 124, 112, 0.2);
+            --secondary-light-2: rgb(127, 183, 126, 0.1);
+            --black: #393e46;
+            --white: #F4F2EF;
+            --light-blue: #94B6EF;
+            --blue: #213E60;
+            --peach: #DFAEA1;
+            --muted-pink: #895159;
+            --shadow: 0px 2px 8px 0px var(--secondary-light);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        body {
+            height: 100vh;
+            width: 100%;
+            background-color: var(--blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logout-form {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .logout-form p {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--blue);
+            margin-bottom: 20px;
+        }
+        
+        .logout-form .button-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logout-form form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logout-form input[type="submit"], .logout-form input[type="button"] {
+            background-color: var(--light-blue);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-form input[type="submit"]:hover, .logout-form input[type="button"]:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Merah */
+        .logout-form input[type="submit"] {
+            background-color: #e74c3c; /* Warna merah */
+        }
+        
+        .logout-form input[type="submit"]:hover {
+            background-color: #c0392b; /* Warna merah lebih gelap saat dihover */
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-form">
         <p>Apakah anda yakin akan logout?</p>
-        <form method="post">
-            {% csrf_token %}
-            <input type="submit" name="logout" value="Submit">
-        </form>
-    </body>
+        <div class="button-group">
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" name="logout" value="Logout">
+            </form>
+            <form>
+                <input type="button" value="Cancel" onclick="window.location.href='/Dashboard';">
+            </form>
+        </div>
+    </div>
+</body>
 </html>

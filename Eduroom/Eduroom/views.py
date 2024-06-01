@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login , authenticate
 from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
-
+from django.contrib import messages
 
 def index(request):
     context ={
@@ -18,7 +18,7 @@ def user_login(request):
     context = {
         'title': 'Login',
     }
-    
+    print(request.POST)
     if request.method == "POST":
         username_login = request.POST.get('NIM')
         password_login = request.POST.get('Password')
@@ -28,7 +28,8 @@ def user_login(request):
             login(request, user)
             return redirect('/Dashboard/')
         else:
-            
+            print("salah")
+            messages.error(request, 'Username atau password salah.')
             return redirect('login')
     
     return render(request, 'login.html', context)
@@ -50,19 +51,21 @@ def register(request):
                 NIM=nim,
             )
             
-            # Buat objek User untuk autentikasi dan simpan ke database
-            user = User.objects.create_user(username=nim, password=password)
+            
+            user = User.objects.create_user(username=nim, password=password,first_name=nama )
         
         except IntegrityError as e:
-            # Tangani jika username sudah ada
-            if 'UNIQUE constraint failed: auth_user.username' in str(e):
-                # Tambahkan pesan error untuk ditampilkan di template
-                context = {
-                    'error': 'Username (NIM) sudah ada. Silakan gunakan NIM lain.',
-                }
-                return redirect(request, '/login/', context)
+            
+            if 'UNIQUE constraint failed: User_user.NIM' in str(e):
+                
+                messages.error(request, 'NIM yang anda masukkan telah terdaftar')
+                
+                return redirect('/login/')
             else:
                 raise e
         
-    
-    return render(request, 'regist.html')
+    username_login = request.POST.get('NIM')
+    password_login = request.POST.get('Password')
+    user = authenticate(request, username=username_login, password=password_login)
+    login(request, user)
+    return redirect('/Dashboard/')

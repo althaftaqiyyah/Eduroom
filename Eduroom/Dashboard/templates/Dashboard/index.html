@@ -11,6 +11,27 @@
     <link rel="stylesheet" href="{% static 'css/homepageStyle.css' %}" /> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <title>Profile Dropdown</title>
+    <style>
+        .popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--light-blue);
+            color: var(--blue);
+            padding: 15px;
+            border: 1px solid var(--blue);
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: none;
+        }
+
+        .popup .close {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
+
 </head>
 <body>
 <header>
@@ -24,16 +45,17 @@
 
         <div class="profile-dropdown">
             <div onclick="toggle()" class="profile-dropdown-btn">
-                <div class="profile-img">
+                <div class="profile-img" >
+                    <img class="profile-img" src="{{ profile.profile_picture.url }}" alt="Profile Picture" />
                     <i class="fa-solid fa-circle"></i>
                 </div>
 
-                <span> {{user}} <i class="fa-solid fa-angle-down"></i> </span>
+                <span> {{profile.Nama}} <i class="fa-solid fa-angle-down"></i> </span>
             </div>
 
             <ul class="profile-dropdown-list">
                 <li class="profile-dropdown-list-item">
-                    <a href="profile.html">
+                    <a href="/User/">
                         <i class="fa-regular fa-user"></i> Edit Profile
                     </a>
                 </li>
@@ -49,20 +71,49 @@
         </div>
     </nav>
 
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="popup" id="popup{{ forloop.counter }}">
+                    {{ message }}
+                    <span class="close" onclick="closePopup({{ forloop.counter }})">&times;</span>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('popup{{ forloop.counter }}').style.display = 'block';
+                    }, 1000); // Delay before showing the popup
+
+                    setTimeout(function() {
+                        closePopup({{ forloop.counter }});
+                    }, 6000); // Automatically close after 5 seconds
+
+                    function closePopup(id) {
+                        document.getElementById('popup' + id).style.display = 'none';
+                    }
+                </script>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
     <section class="container">
         <div class="container-text">
-            <h2>Welcome to EduRoom, {{user}}!</h2>
+            <h2>Welcome to EduRoom, {{profile.Nama}}!</h2>
             <p>We're glad to have you here. Enjoy effortless room booking!</p>
         </div>
     </section>
 
     <section class="wrapper">
-        <div class="search">
-            <input type="text" placeholder="I'm looking for..." onkeyup="search(event)">
-            <button>
-                <i class="fa-solid fa-magnifying-glass"></i> Search
-            </button>
-        </div>
+        
+        <form method="get" action="{% url 'hasilPencarian' %}">
+            <div class="search">
+                {% csrf_token %}
+
+                <input type="text" name="query" placeholder="Masukkan ID Ruangan" value="{{ query }}" onkeyup="search(event)"> <!-- Tambahkan atribut name="query" dan value="{{ query }}" -->
+                <button><i type= 'submit' class="fa-solid fa-magnifying-glass"></i> Search</button>
+            </div>
+        </form>
+        
         <ul class="result">
             <li>
                 <i class="fa-solid fa-magnifying-glass"></i> <a href="#">coffeshop</a>
@@ -77,97 +128,61 @@
     </section>
 </header>
 
+
+
 <div class="card-container">
     <div class="row">
-        <div class="image">
-            <img src="{% static 'img/studyroom.jpg' %}" alt="">
-            <div class="details">
-                <h5><i class="fa fa-user"></i> 5</h5>
-                <h2>RK U 1.01</h2>
-                <p>Gedung FMIPA Wing 5 Level 2</p>
-                <div class="more">
-                    <a href="room.html" class="read-more">Read More</a>
-                    <div class="icon-links">
-                        <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
+        {%if request.GET.query%}
+            {% if queryset %}
+                {% for ruangan in queryset %}
+                    <div class="image">
+                        <img src="{% static 'img/studyroom.jpg' %}" alt="">
+                        <div class="details">
+                            <h5><i class="fa fa-user"></i> {{ruangan.Kapasitas}}</h5>
+                            <h2>{{ ruangan.IdRuangan }}</h2>
+                            <p>{{ ruangan.NamaRuangan }}</p>
+                            <div class="more">
+                                <a class="read-more" href="{% url 'detailRuangan' %}?IdRuangan={{ ruangan.IdRuangan }}">Read More</a>
+                                
+                                <div class="icon-links">
+                                    <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: white;">Tidak ada hasil yang ditemukan. <a style="color: white;" href="/Dashboard">Kembali tampilan awal</a></p>
+                
+            <!-- Ubah dari <li> menjadi <p> -->
+            {% endif %}
+        {%else%}
+            {% for ruangan in room %}
+                <div class="image">
+                    <img src="{% static 'img/studyroom.jpg' %}" alt="">
+                    <div class="details">
+                        <h5><i class="fa fa-user"></i> {{ruangan.Kapasitas}}</h5>
+                        <h2>{{ ruangan.IdRuangan }}</h2>
+                        <p>{{ ruangan.NamaRuangan }}</p>
+                        <div class="more">
+                            <a class="read-more" href="{% url 'detailRuangan' %}?IdRuangan={{ ruangan.IdRuangan }}">Read More</a>
+                            
+                            <div class="icon-links">
+                                <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            {% endfor %}
 
-        <div class="image">
-            <img src="{% static 'img/studyroom.jpg' %}" alt="">
-            <div class="details">
-                <h5><i class="fa fa-user"></i> 5</h5>
-                <h2>RK U 1.02</h2>
-                <p>Gedung FMIPA Wing 5 Level 2</p>
-                <div class="more">
-                    <a href="room.html" class="read-more">Read More</a>
-                    <div class="icon-links">
-                        <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endif %}   
 
-        <div class="image">
-            <img src="{% static 'img/studyroom.jpg' %}" alt="">
-            <div class="details">
-                <h5><i class="fa fa-user"></i> 5</h5>
-                <h2>RK U 1.03</h2>
-                <p>Gedung FMIPA Wing 5 Level 2</p>
-                <div class="more">
-                    <a href="room.html" class="read-more">Read More</a>
-                    <div class="icon-links">
-                        <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="image">
-            <img src="{% static 'img/studyroom.jpg' %}" alt="">
-            <div class="details">
-                <h5><i class="fa fa-user"></i> 5</h5>
-                <h2>RK U 1.04</h2>
-                <p>Gedung FMIPA Wing 5 Level 2</p>
-                <div class="more">
-                    <a href="room.html" class="read-more">Read More</a>
-                    <div class="icon-links">
-                        <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="image">
-            <img src="{% static 'img/studyroom.jpg' %}" alt="">
-            <div class="details">
-                <h5><i class="fa fa-user"></i> 5</h5>
-                <h2>RK U 1.05</h2>
-                <p>Gedung FMIPA Wing 5 Level 2</p>
-                <div class="more">
-                    <a href="room.html" class="read-more">Read More</a>
-                    <div class="icon-links">
-                        <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="image">
-            <img src="{% static 'img/studyroom.jpg' %}" alt="">
-            <div class="details">
-                <h5><i class="fa fa-user"></i> 5</h5>
-                <h2>RK U 1.06</h2>
-                <p>Gedung FMIPA Wing 5 Level 2</p>
-                <div class="more">
-                    <a href="room.html" class="read-more">Read More</a>
-                    <div class="icon-links">
-                        <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
 

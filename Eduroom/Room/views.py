@@ -49,20 +49,4 @@ def createRuangan(request):
     return render(request,'Room/createRoom.html', context)
 
 
-def HasilPencarian(request): 
-    # Ambil kueri pencarian dari parameter GET
-    query = request.GET.get('query')
-
-    # Filter objek Room berdasarkan kueri pencarian
-    if query:
-        qs = Room.objects.filter(IdRuangan__icontains=query)
-    else:
-        # Jika tidak ada kueri pencarian, tampilkan semua objek Room
-        qs = Room.objects.all()
-
-    context = {
-        'queryset': qs,
-        'query': query  # Sertakan kueri pencarian dalam konteks untuk menampilkan kembali pada formulir pencarian di halaman HTML
-    }
-  
-    return render(request, 'Room/hasilPencarian.html', context)
+#hasil pencarian

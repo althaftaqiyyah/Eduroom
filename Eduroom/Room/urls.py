@@ -7,5 +7,5 @@ urlpatterns = [
     path('', views.index),
     path('detailRuangan/', views.detailRuangan,name='detailRuangan'),
     path('createRoom/', views.createRuangan),
-    path('hasilPencarian', views.HasilPencarian, name='hasilPencarian')
+    
 ]

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}} | Room </title>
+    <title>Reservasi Ruangan</title>
     <style>
         .card {
             border: 1px solid #ccc;
@@ -11,6 +11,20 @@
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex; /* Menggunakan flexbox untuk menata isi .card */
+        }
+        .card img {
+            width: 200px; /* Menentukan lebar gambar */
+            height: auto; /* Menjaga proporsi aspek gambar */
+            object-fit: cover; /* Menjaga gambar tetap proporsional */
+            border-radius: 8px; /* Sudut bulat gambar */
+            margin-right: 20px; /* Jarak antara gambar dan teks */
+        }
+        .card-text {
+            flex: 1; /* Mengisi ruang tersisa */
+        }
+        .card-text h2, .card-text p {
+            margin: 0; /* Menghapus margin bawaan dari h2 dan p */
         }
         h1 {
             text-align: center;
@@ -28,27 +42,23 @@
     </style>
 </head>
 <body>
-
     <div class="container">
-
 
         <form method="get" action="{% url 'hasilPencarian' %}">
             {% csrf_token %}
             <input type="text" name="query" placeholder="Masukkan ID Ruangan" value="{{ query }}"> <!-- Tambahkan atribut name="query" dan value="{{ query }}" -->
             <button type="submit">Cari</button>
         </form>
-    
-        
-       
-        
+
         <h1>Silahkan Pilih Ruangan Untuk Direservasi</h1>
         {% for ruangan in room %}
             <div class="card">
-                <img src="{% load static %}{{ ruangan.Foto }}" />
-                
-                <h2>{{ruangan.IdRuangan}}</h2>
-                <p>{{ruangan.NamaRuangan}}</p>
-                <a class="link" href="{% url 'detailRuangan' %}?IdRuangan={{ ruangan.IdRuangan }}">Lihat Detail Ruangan</a>
+                <img src="{{ ruangan.Foto.url }}" alt="Gambar Ruangan" />
+                <div class="card-text">
+                    <h2>{{ ruangan.IdRuangan }}</h2>
+                    <p>{{ ruangan.NamaRuangan }}</p>
+                    <a class="link" href="{% url 'detailRuangan' %}?IdRuangan={{ ruangan.IdRuangan }}">Lihat Detail Ruangan</a>
+                </div>
             </div>
         {% endfor %}
         <a class="link" href="/Dashboard/">Kembali</a>

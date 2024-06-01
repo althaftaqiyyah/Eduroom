@@ -3,8 +3,12 @@ from .forms import Reservasi_form
 from .models import Reservasi
 from Room.models import Room
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
+
 
 def index(request, room_id):
+    admins = User.objects.filter(is_superuser=True)
+    email_admin = [admin.email for admin in admins]
     
     data = {
         'idRuangan': room_id
@@ -18,7 +22,7 @@ def index(request, room_id):
             Nama_Peminjam = form_reservasi.cleaned_data.get('Nama_Peminjam')
             Waktu_Mulai = form_reservasi.cleaned_data.get('Waktu_Mulai')
             Waktu_Selesai = form_reservasi.cleaned_data.get('Waktu_Selesai')
-
+            
             Reservasi.objects.create(
                 idRuangan=idRuangan,
                 Nama_Peminjam= Nama_Peminjam, 
@@ -27,7 +31,13 @@ def index(request, room_id):
                 Waktu_Mulai=Waktu_Mulai,
                 Waktu_Selesai= Waktu_Selesai
             )
-            
+            send_mail(
+                "PENGAJUAN RUANGAN",
+                f"Atas nama {Nama_Peminjam} telah mengajukan peminjaman ruangan {idRuangan}, silahkan dilakukan pengecekkan",
+                "ilkom734@gmail.com",
+                email_admin,
+                fail_silently=False
+            )
       
             return HttpResponseRedirect('/History/')  # Redirect to History page after successfully creating reservation
     else:
