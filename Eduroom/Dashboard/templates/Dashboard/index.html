@@ -158,25 +158,28 @@
             <!-- Ubah dari <li> menjadi <p> -->
             {% endif %}
         {%else%}
-            {% for ruangan in room %}
-                <div class="image">
-                    <img src="{% static 'img/studyroom.jpg' %}" alt="">
-                    <div class="details">
-                        <h5><i class="fa fa-user"></i> {{ruangan.Kapasitas}}</h5>
-                        <h2>{{ ruangan.IdRuangan }}</h2>
-                        <p>{{ ruangan.NamaRuangan }}</p>
-                        <div class="more">
-                            <a class="read-more" href="{% url 'detailRuangan' %}?IdRuangan={{ ruangan.IdRuangan }}">Read More</a>
-                            
-                            <div class="icon-links">
-                                <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
+            {%if room %}
+                {% for ruangan in room %}
+                    <div class="image">
+                        <img src="{% static 'img/studyroom.jpg' %}" alt="">
+                        <div class="details">
+                            <h5><i class="fa fa-user"></i> {{ruangan.Kapasitas}}</h5>
+                            <h2>{{ ruangan.IdRuangan }}</h2>
+                            <p>{{ ruangan.NamaRuangan }}</p>
+                            <div class="more">
+                                <a class="read-more" href="{% url 'detailRuangan' %}?IdRuangan={{ ruangan.IdRuangan }}">Read More</a>
                                 
+                                <div class="icon-links">
+                                    <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-
+                {% endfor %}
+            {%else%}
+                <p style="color: white;">Tidak ada hasil yang ditemukan. <a style="color: white;" href="/Dashboard">Kembali tampilan awal</a></p>
+            {%endif%}    
         {% endif %}   
 
 
