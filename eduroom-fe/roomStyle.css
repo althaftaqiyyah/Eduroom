@@ -446,6 +446,11 @@
 }
 
 /*table*/
+.table-container {
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -463,9 +468,46 @@ th, td {
 
 th {
   background-color: var(--blue);
-  color: white;
+  color: var(--white);
 }
 
+#reservationTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Mengatur border di pinggir tabel dan tiap cell */
+#reservationTable, #reservationTable th, #reservationTable td {
+  border: 1px solid #ccc;
+}
+
+/* Mengatur padding dalam cell */
+#reservationTable th, #reservationTable td {
+  padding: 10px;
+  text-align: left;
+}
+
+#reservationTable th {
+  background-color: var(--blue);
+}
+
+#reservationTable tbody tr:nth-child(odd) {
+  background-color: var(--white);
+}
+
+#reservationTable tbody tr:nth-child(even) {
+  background-color: var(--light-blue); 
+}
+
+/* Mengatur warna status */
+.status-not-confirmed {
+  color: var(--black);
+}
+
+.status-confirmed {
+  color: var(--green);
+}
 
 
 

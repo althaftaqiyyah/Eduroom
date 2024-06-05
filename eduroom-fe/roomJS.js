@@ -33,31 +33,59 @@ function updateButtonState() {
 
 
 function openPopup() {
+    console.log("openPopup called");
     document.getElementById('popup').classList.add('open-popup');
     document.getElementById('overlay').classList.add('open-popup');
+    clearForm(); // Clear the form fields when opening the popup
 }
 
 function closePopup() {
+    console.log("closePopup called");
     document.getElementById('popup').classList.remove('open-popup');
     document.getElementById('overlay').classList.remove('open-popup');
 }
 
-document.querySelector('.button-book').addEventListener('click', closePopup);
-document.querySelector('.button-cancel').addEventListener('click', closePopup);
+/*document.addEventListener('DOMContentLoaded', (event) => {
+    console.log("DOMContentLoaded event");
+    // Event listener hanya didaftarkan sekali setelah DOM dimuat
+    document.querySelector('.button-book').addEventListener('click', bookReservation);
+    document.querySelector('.button-cancel').addEventListener('click', () => {
+        closePopup();
+        clearForm(); // Clear the form fields when cancelling the popup
+    });
+});*/
 
-
-document.getElementById('start_time').addEventListener('input', calculateDuration);
-document.getElementById('end_time').addEventListener('input', calculateDuration);
-
-
-function AddRow() {
-    // Function to add row to the table or handle form submission
-    console.log("Add button clicked");
+function clearForm() {
+    console.log("clearForm called");
+    document.getElementById("borrower_name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("purpose").value = "";
+    document.getElementById("start_date").value = "";
+    document.getElementById("start_time").value = "";
+    document.getElementById("end_date").value = "";
+    document.getElementById("end_time").value = "";
 }
 
-
 function submitForm() {
-    const reservationId = document.getElementById("reservation_id").value;
+    console.log("submitForm called");
+    const table = document.getElementById("reservationTable").getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+
+    const currentDate = new Date().toLocaleString();
+    const reservationId = generateReservationId();
+    const startTime = `${document.getElementById("start_date").value} ${document.getElementById("start_time").value}`;
+    const endTime = `${document.getElementById("end_date").value} ${document.getElementById("end_time").value}`;
+    const status = "Not yet confirmed";
+
+    newRow.insertCell(0).textContent = currentDate;
+    newRow.insertCell(1).textContent = reservationId;
+    newRow.insertCell(2).textContent = startTime;
+    newRow.insertCell(3).textContent = endTime;
+    newRow.insertCell(4).textContent = status;
+}
+
+function bookReservation() {
+    console.log("bookReservation called");
     const borrowerName = document.getElementById("borrower_name").value;
     const email = document.getElementById("email").value;
     const purpose = document.getElementById("purpose").value;
@@ -66,35 +94,19 @@ function submitForm() {
     const endDate = document.getElementById("end_date").value;
     const endTime = document.getElementById("end_time").value;
 
-    if (!reservationId || !borrowerName || !email || !purpose || !startDate || !startTime || !endDate || !endTime) {
-        alert("Please fill in all fields.");
-        return;
+    if (borrowerName === "" || email === "" || purpose === "" || startDate === "" || startTime === "" || endDate === "" || endTime === "") {
+        alert("Please fill in all fields before booking.");
+    } else {
+        submitForm();
+        closePopup();
     }
-
-    const bookingTime = new Date().toLocaleString();
-    const startDateTime = new Date(startDate + 'T' + startTime);
-    const endDateTime = new Date(endDate + 'T' + endTime);
-    const totalDuration = ((endDateTime - startDateTime) / (1000 * 60 * 60)).toFixed(2) + ' hours';
-
-    const table = document.getElementById("reservationTable").getElementsByTagName("tbody")[0];
-    const newRow = table.insertRow();
-
-    newRow.insertCell(0).textContent = bookingTime;
-    newRow.insertCell(1).textContent = reservationId;
-    newRow.insertCell(2).textContent = startDate + ' ' + startTime;
-    newRow.insertCell(3).textContent = endDate + ' ' + endTime;
-    newRow.insertCell(4).textContent = "in line";
-
-    closePopup();
 }
-
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById("reservation_id").value = generateReservationId();
-});
 
 function generateReservationId() {
     return 'RES' + Math.floor(Math.random() * 10000);
 }
 
-
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Any additional initialization if required
+    console.log("Page loaded and DOMContentLoaded event fired");
+});

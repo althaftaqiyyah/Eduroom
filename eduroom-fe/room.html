@@ -134,8 +134,8 @@
             </div>
             
             <div class="popup-button">
-                <button type="button" onclick="closePopup()" class="button-book">Book</button>
-                <button type="button" onclick="closePopup()" class="button-cancel">Cancel</button>
+              <button type="button" onclick="bookReservation()" class="button-book">Book</button>
+              <button type="button" onclick="closePopup()" class="button-cancel">Cancel</button>
             </div>
         </div>
     </div>
@@ -146,20 +146,23 @@
       <h2>Room Reservation Schedule</h2>
     </div>
 
-    <table id="reservationTable">
-      <thead>
-          <tr>
-              <th>Booking Time</th>
-              <th>Reservation ID</th>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Status</th>
-          </tr>
-      </thead>
-      <tbody>
-          <!-- Data will be inserted here -->
-      </tbody>
-  </table>
+    <div class="table-container">
+      <table id="reservationTable">
+          <thead>
+              <tr>
+                  <th>Booking Time</th>
+                  <th>Reservation ID</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Status</th>
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Rows will be added here -->
+          </tbody>
+      </table>
+  </div>
+  
 
     <script src="roomJS.js"></script>
 
