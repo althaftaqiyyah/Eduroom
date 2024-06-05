@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Secular+One&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="historyStyle.css" />
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="image/logo.png" class="navbar-logo" alt="logo" />
+            <ul class="navbar-list">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Room</a></li>
+            </ul>
+      
+            <div class="profile-dropdown">
+              <div onclick="toggle()" class="profile-dropdown-btn">
+                <div class="profile-img">
+                  <i class="fa-solid fa-circle"></i>
+                </div>
+      
+                <span
+                  > Nabila
+                  <i class="fa-solid fa-angle-down"></i>
+                </span>
+              </div>
+      
+              <ul class="profile-dropdown-list">
+                <li class="profile-dropdown-list-item">
+                  <a href="profile.html">
+                    <i class="fa-regular fa-user"></i>
+                    Edit Profile
+                  </a>
+                </li>
+      
+                <hr />
+      
+                <li class="profile-dropdown-list-item">
+                  <a href="login.html">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log out
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </header>
+
+    
+    <div class="container">
+        <div class="table">
+            <h1>Reservation History</h1>
+            <table id="reservationTable">
+                <thead>
+                    <tr>
+                        <th>Booking Time</th>
+                        <th>Reservation ID</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data akan dimasukkan di sini -->
+                    <tr>
+                        <td>2024-06-01 10:00 AM</td>
+                        <td>RES1234</td>
+                        <td>2024-06-05 09:00 AM</td>
+                        <td>2024-06-05 05:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-02 11:00 AM</td>
+                        <td>RES5678</td>
+                        <td>2024-06-06 10:00 AM</td>
+                        <td>2024-06-06 06:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-10 10:00 AM</td>
+                        <td>RES4768</td>
+                        <td>2024-06-11 09:00 AM</td>
+                        <td>2024-06-12 05:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-12 10:00 AM</td>
+                        <td>RES9987</td>
+                        <td>2024-06-13 09:00 AM</td>
+                        <td>2024-06-13 05:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>2024-06-15 10:00 AM</td>
+                        <td>RES2098</td>
+                        <td>2024-06-16 09:00 AM</td>
+                        <td>2024-06-16 05:00 PM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+    <script src="historyJS.js"></script>
+</body>
+</html>
