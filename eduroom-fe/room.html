@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Secular+One&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="roomStyle.css" />
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="image/logo.png" class="navbar-logo" alt="logo" />
+            <ul class="navbar-list">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Room</a></li>
+            </ul>
+      
+            <div class="profile-dropdown">
+              <div onclick="toggle()" class="profile-dropdown-btn">
+                <div class="profile-img">
+                  <i class="fa-solid fa-circle"></i>
+                </div>
+      
+                <span
+                  > Nabila
+                  <i class="fa-solid fa-angle-down"></i>
+                </span>
+              </div>
+      
+              <ul class="profile-dropdown-list">
+                <li class="profile-dropdown-list-item">
+                  <a href="profile.html">
+                    <i class="fa-regular fa-user"></i>
+                    Edit Profile
+                  </a>
+                </li>
+      
+                <hr />
+      
+                <li class="profile-dropdown-list-item">
+                  <a href="login.html">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log out
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </header>
+
+    <div class="room">
+        <div class="left">
+            <div class="slider-container">
+                <div class="slider">
+                    <img src="image/meeting.jpg" alt="">
+                    <img src="image/studyroom.jpg" alt="">
+                    <img src="image/slide1.jpg" alt="">
+                    <img src="image/slide2.jpg" alt="">
+                </div>
+                <button class="prev" onclick="slide(-1)">&#10094;</button>
+                <button class="next" onclick="slide(1)">&#10095;</button>
+            </div>
+        </div>
+        <div class="right">
+            <div class="room-info">
+                <h3>RK U 1.01</h3>
+                <p><strong>Room ID:</strong> G6-701</p>
+                <p><strong>Location:</strong> FMIPA Building, Wing 5, Level 2</p>
+                <p><strong>Maximum capacity:</strong> 15 people</p>
+                <p><strong>Facilities:</strong></p>
+                <ul>
+                    <li>3 tables</li>
+                    <li>9 chairs</li>
+                    <li>whiteboard</li>
+                    <li>full AC</li>
+                    <li>projector</li>
+                    <li>projector screen</li>
+                </ul>
+                <p><strong>Availability:</strong></p>
+                <ul>
+                    <li>Monday - Thursday: 9 AM - 9 PM</li>
+                    <li>Friday: 8 AM - 6 PM</li>
+                    <li>Closed on national holidays</li>
+                </ul>
+            </div>
+        </div> 
+    </div>
+
+    <div class="reserve">
+        <a href="#" class="btn-reserving" onclick="openPopup()">Reserve This Room</a>
+        <div class="popup" id="popup">
+            <h2>Reservation Form</h2>
+            <div class="form-container">
+                <label for="reservation_id">Reservation ID:</label>
+                <input type="text" name="reservation_id" id="reservation_id" disabled><br><br>
+            
+                <label for="borrower_name">Name:</label>
+                <input type="text" name="borrower_name" id="borrower_name"><br><br>
+            
+                <label for="email">Email Address:</label>
+                <input type="text" name="email" id="email"><br><br>
+            
+                <label for="purpose">Purpose:</label>
+                <input type="text" name="purpose" id="purpose"><br><br>
+            
+                <div class="datetime-container">
+                    <div class="datetime-input">
+                        <label for="start_date">Start Date:</label>
+                        <input type="date" name="start_date" id="start_date">
+                    </div>
+                    <div class="datetime-input">
+                        <label for="start_time">Start Time:</label>
+                        <input type="time" name="start_time" id="start_time">
+                    </div>
+                </div><br><br>
+            
+                <div class="datetime-container">
+                    <div class="datetime-input">
+                        <label for="end_date">End Date:</label>
+                        <input type="date" name="end_date" id="end_date">
+                    </div>
+                    <div class="datetime-input">
+                        <label for="end_time">End Time:</label>
+                        <input type="time" name="end_time" id="end_time">
+                    </div>
+                </div><br><br>
+            </div>
+            
+            <div class="popup-button">
+                <button type="button" onclick="closePopup()" class="button-book">Book</button>
+                <button type="button" onclick="closePopup()" class="button-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+        
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+    <div class="tableName">
+      <h2>Room Reservation Schedule</h2>
+    </div>
+
+    <table id="reservationTable">
+      <thead>
+          <tr>
+              <th>Booking Time</th>
+              <th>Reservation ID</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Status</th>
+          </tr>
+      </thead>
+      <tbody>
+          <!-- Data will be inserted here -->
+      </tbody>
+  </table>
+
+    <script src="roomJS.js"></script>
+
+</body>
+</html>
