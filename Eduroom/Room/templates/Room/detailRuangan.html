@@ -1,68 +1,171 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Ruangan {{IdRuangan}}</title>
-
-    <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
-        
-        td, th {
-          border: 1px solid #dddddd;
-          text-align: left;
-          padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #dddddd;
-        }
-        </style>
-       
-        
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Secular+One&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="{%static 'css/roomStyle.css' %}" />
+    <title>Document</title>
 </head>
 <body>
-    {%for detail in detailRuangan%}
-        <p>Id Ruangan : {{detail.IdRuangan}}</p>
-        <p>Nama Ruangan : {{detail.NamaRuangan}}</p>
-        <p>Kapasitas Ruangan: {{detail.Kapasitas}}</p> 
-        <p>Lokasi : {{detail.Lokasi}}</p>
-        <button><a href="{% url 'reservasi' detail.IdRuangan %}">Reservasi</a></button>
+    <header>
+        <nav class="navbar">
+            <img src="{%static 'img/logo2.png'%}" class="navbar-logo" alt="logo" />
+            <ul class="navbar-list">
+              {% for link, name in nav %}
+                  <li><a href="{{ link }}">{{ name }}</a></li>
+              {% endfor %}
+            </ul>
+            <div class="profile-dropdown">
+              <div onclick="toggle()" class="profile-dropdown-btn">
+                <div class="profile-img">
+                  <img class="profile-img" src="{{ profile.profile_picture.url }}" alt="Profile Picture" />
+                  <i class="fa-solid fa-circle"></i>
+                </div>
+      
+                <span
+                  > {{profile.Nama}}
+                  <i class="fa-solid fa-angle-down"></i>
+                </span>
+              </div>
+      
+              <ul class="profile-dropdown-list">
+                <li class="profile-dropdown-list-item">
+                  <a href="profile.html">
+                    <i class="fa-regular fa-user"></i>
+                    Edit Profile
+                  </a>
+                </li>
+      
+                <hr />
+      
+                <li class="profile-dropdown-list-item">
+                  <a href="login.html">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log out
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </header>
 
-    {%endfor%}
+    <div class="room">
+        <div class="left">
+            <div class="slider-container">
+                <div class="slider">
+                    <img src="{{ detailRuangan.Foto.url }}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="room-info">
+                
+                  <h3>{{detailRuangan.NamaRuangan}}</h3>
+                  <p><strong>Room ID:</strong> {{detailRuangan.IdRuangan}}</p>
+                  <p><strong>Location:</strong> {{detailRuangan.Lokasi}}</p>
+                  <p><strong>Maximum capacity:</strong> {{detailRuangan.Kapasitas}} people</p>
+    
+                
 
-    <button><a href="/Dashboard/">Kembali</a></button>
+            </div>
+        </div> 
+    </div>
 
-    <h1>Jadwal Reservasi Ruangan</h1>
+    <div class="reserve">
+        <a href="#" class="btn-reserving" onclick="openPopup()">Reserve This Room</a>
+        <div class="popup" id="popup">
+          
+          <form method = 'POST' action="{% url 'reservasi' %}">
+              <br>
+              {% csrf_token %}
+              <h2>Reservation Form</h2>
+              <div class="form-container">
+                  
+                  <label for="reservation_id">Room ID:</label>
+                  <input type="text" name="reservation_id" id="reservation_id" value="{{detailRuangan.IdRuangan}}" ><br><br>
+              
+                  <label for="borrower_name">Name:</label>
+                  <input type="text" name="borrower_name" id="borrower_name"><br><br>
+              
+                  <label for="email">Email Address:</label>
+                  <input type="text" name="email" id="email"><br><br>
+              
+                  <label for="purpose">Purpose:</label>
+                  <input type="text" name="purpose" id="purpose"><br><br>
+              
+                  <div class="datetime-container">
+                      <div class="datetime-input">
+                          <label for="start_date">Start Date:</label>
+                          <input type="date" name="start_date" id="start_date">
+                      </div>
+                      <div class="datetime-input">
+                          <label for="start_time">Start Time:</label>
+                          <input type="time" name="start_time" id="start_time">
+                      </div>
+                  </div><br><br>
+              
+                  <div class="datetime-container">
+                      <div class="datetime-input">
+                          <label for="end_date">End Date:</label>
+                          <input type="date" name="end_date" id="end_date">
+                      </div>
+                      <div class="datetime-input">
+                          <label for="end_time">End Time:</label>
+                          <input type="time" name="end_time" id="end_time">
+                      </div>
+                  </div><br><br>
+              </div>
+              
+              <div class="popup-button">
+                <button type="submit" class="button-book">Book</button>
+                <button type="button" onclick="closePopup()" class="button-cancel">Cancel</button>
+              </div>
+          </div>
+      </form>
+    </div>
+        
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
 
+    <div class="tableName">
+      <h2>Room Reservation Schedule</h2>
+    </div>
 
-    <table>
-        <thead>
+    <div class="table-container">
+      <table id="reservationTable">
+          <thead>
             <tr>
-                <th>Tanggal Pengajuan</th>
-                <th>Tanggal Penggunaan</th>
+                <th>Tanggal,Waktu Pengajuan</th>
+                <th>Tanggal Mulai Penggunaan</th>
+                <th>Tanggal Mulai Penggunaan</th>
                 <th>Waktu Mulai</th>
                 <th>Waktu Selesai</th>                                  
-              </tr>
-        </thead>
-        <tbody>
-            {%for his_room in historyRuangan %}
-            <tr>            
-                <td>{{his_room.Tanggal_Pengajuan}}</td>
-                <td>{{his_room.Tanggal_Penggunaan}}</td>
-                <td>{{his_room.Waktu_Mulai}}</td>
-                <td>{{his_room.Waktu_Selesai}}</td>          
             </tr>
-            {%endfor%}
-        </tbody>
-        
+          </thead>
+          <tbody>
+              <!-- Rows will be added here -->
+              {%for his_room in historyRuangan %}
+              <tr>            
+                  <td>{{his_room.Tanggal_Pengajuan}}</td>
+                  <td>{{his_room.Tanggal_Penggunaan_Mulai}}</td>
+                  <td>{{his_room.Tanggal_Penggunaan_Selesai}}</td>
+                  <td>{{his_room.Waktu_Mulai}}</td>
+                  <td>{{his_room.Waktu_Selesai}}</td>          
+              </tr>
+              {%endfor%}
+          </tbody>
       </table>
-   
+  </div>
+  
+
+    <script src="{%static "/js/roomJS.js" %}"></script>
 
 </body>
 </html>
-

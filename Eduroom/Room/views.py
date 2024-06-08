@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Ht
 from .models import Room
 from .forms import createRoom, PencarianForm
 from Reservation.models import Reservasi
+from User.models import user as User_Profile
 # Create your views here.
 
 
@@ -15,14 +16,19 @@ def index(request):
 
 def detailRuangan(request):
     IdRuangan = request.GET.get('IdRuangan')
-    
+    user_profile = User_Profile.objects.filter(NIM__icontains=request.user).first()
     if IdRuangan:
-        detail = Room.objects.filter(IdRuangan=IdRuangan)
+        detail = Room.objects.filter(IdRuangan=IdRuangan).first()
         detail_history = Reservasi.objects.filter(idRuangan=IdRuangan).order_by('Tanggal_Pengajuan')
         context = {
             "title": "Eduroom",
             "detailRuangan": detail,
-            "historyRuangan": detail_history
+            "historyRuangan": detail_history,
+            "profile": user_profile,
+            "nav": [
+            ["/History","History Reservasi"],
+            ["/Dashboard", "Room"],
+        ],
         }
         return render(request, "Room/detailRuangan.html", context) 
     else:
@@ -49,4 +55,3 @@ def createRuangan(request):
     return render(request,'Room/createRoom.html', context)
 
 
-#hasil pencarian

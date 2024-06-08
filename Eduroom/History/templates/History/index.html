@@ -1,64 +1,115 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}| History</title>
-
-    <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
-        
-        td, th {
-          border: 1px solid #dddddd;
-          text-align: left;
-          padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #dddddd;
-        }
-        </style>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Secular+One&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="{% static "\css\historyStyle.css" %}">
+    
+    <title>Document</title>
+    
 </head>
 <body>
-    <h1>Histoy Pengajuan Peminjaman Ruangan</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID Ruangan </th>
-                <th>Tanggal Pengajuan</th>
-                <th>Tanggal Peminjaman</th>
-                <th>Waktu Mulai</th>
-                <th>Waktu Selesai</th>
-                <th>Status</th>
-                <th>Keterangan</th>
-                <th>Batalkan</th>
-                <th>Ubah</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for hist in history %}
-                <tr>
-                    <td>{{hist.idRuangan}}</td>
-                    <td>{{hist.Tanggal_Pengajuan}}</td>
-                    <td>{{hist.Tanggal_Penggunaan}}</td>
-                    <td>{{hist.Waktu_Mulai}}</td>
-                    <td>{{hist.Waktu_Selesai}}</td>
-                    <td>{{hist.status}}</td>
-                    <td>{{hist.Keterangan}}</td>
-                    <td><a href="{% url 'delete' hist.id %}">Batalkan</a></td>
-                    <td><a href="{% url 'update' hist.id %}">update</a></td>
-                </tr>
-            {%endfor%}
-        </tbody>
-    </table>
+    {% for message in messages %}
+        <div class="alert alert-success">
+            <a class="close" href="/History/" data-dismiss="alert">×</a>
+            {{ message }}
+        </div>
+    {% endfor %}
+    <header>
+        <nav class="navbar">
+            <img src="{% static 'img/logo2.png' %}" class="navbar-logo" alt="logo" />
+            <ul class="navbar-list">
+                {% for link, name in nav %}
+                    <li><a href="{{ link }}">{{ name }}</a></li>
+                {% endfor %}
+            </ul>
+      
+            <div class="profile-dropdown">
+              <div onclick="toggle()" class="profile-dropdown-btn">
+                <div class="profile-img">
+                    <img class="profile-img" src="{{ profile.profile_picture.url }}" alt="Profile Picture" />
+                    <i class="fa-solid fa-circle"></i>
+                </div>
+      
+                <span
+                  > {{profile.Nama}}
+                  <i class="fa-solid fa-angle-down"></i>
+                </span>
+              </div>
+      
+              <ul class="profile-dropdown-list">
+                <li class="profile-dropdown-list-item">
+                  <a href="/User/">
+                    <i class="fa-regular fa-user"></i>
+                    Edit Profile
+                  </a>
+                </li>
+      
+                <hr />
+      
+                <li class="profile-dropdown-list-item">
+                  <a href="../Dashboard/logout/">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log out
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </header>
+
     
+    <div class="container">
+        <div class="table">
+            <h1>Reservation History</h1>
+            <table id="reservationTable">
+                <thead>
+                    <tr>
+                        <th>ID Ruangan</th>
+                        <th>Tanggal Pengajuan</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Waktu Mulai</th>
+                        <th>Waktu Selesai</th>
+                        <th>Status</th>
+                        <th>Keterangan</th>
+                        <th>Batalkan</th>
+                        <th>Ubah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data akan dimasukkan di sini -->
+                    {%for hist in history %}
+                      <tr>
+                          <td>{{hist.idRuangan}}</td>
+                          <td>{{hist.Tanggal_Pengajuan}}</td>
+                          <td>{{hist.Tanggal_Penggunaan}}</td>
+                          <td>{{hist.Waktu_Mulai}}</td>
+                          <td>{{hist.Waktu_Selesai}}</td>
+                          <td>{{hist.status}}</td>
+                          <td>{{hist.Keterangan}}</td>
+                          <td>
+                            <a href="{% url 'delete' hist.id %}" class="custom-button custom-button-danger">Batalkan</a>
+                          </td>
+                          <td>
+                            <a href="{% url 'update' hist.id %}" class="custom-button custom-button-primary">Update</a>
+                          </td>
+                          
+                      </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
         
-    
-    <button><a href="/Dashboard/">Kembali</a></button>
+    </div>
+
+    <script src="{% static 'js\historyJS.js'%}"></script>
 </body>
 </html>

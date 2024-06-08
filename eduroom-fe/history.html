@@ -62,44 +62,32 @@
             <table id="reservationTable">
                 <thead>
                     <tr>
-                        <th>Booking Time</th>
-                        <th>Reservation ID</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
+                        <th>ID Ruangan</th>
+                        <th>Tanggal Pengajuan</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Waktu Mulai</th>
+                        <th>Waktu Selesai</th>
+                        <th>Status</th>
+                        <th>WKeterangan</th>
+                        <th>Batalkan</th>
+                        <th>Ubah</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Data akan dimasukkan di sini -->
-                    <tr>
-                        <td>2024-06-01 10:00 AM</td>
-                        <td>RES1234</td>
-                        <td>2024-06-05 09:00 AM</td>
-                        <td>2024-06-05 05:00 PM</td>
-                    </tr>
-                    <tr>
-                        <td>2024-06-02 11:00 AM</td>
-                        <td>RES5678</td>
-                        <td>2024-06-06 10:00 AM</td>
-                        <td>2024-06-06 06:00 PM</td>
-                    </tr>
-                    <tr>
-                        <td>2024-06-10 10:00 AM</td>
-                        <td>RES4768</td>
-                        <td>2024-06-11 09:00 AM</td>
-                        <td>2024-06-12 05:00 PM</td>
-                    </tr>
-                    <tr>
-                        <td>2024-06-12 10:00 AM</td>
-                        <td>RES9987</td>
-                        <td>2024-06-13 09:00 AM</td>
-                        <td>2024-06-13 05:00 PM</td>
-                    </tr>
-                    <tr>
-                        <td>2024-06-15 10:00 AM</td>
-                        <td>RES2098</td>
-                        <td>2024-06-16 09:00 AM</td>
-                        <td>2024-06-16 05:00 PM</td>
-                    </tr>
+                    {%for hist in history %}
+                      <tr>
+                          <td>{{hist.idRuangan}}</td>
+                          <td>{{hist.Tanggal_Pengajuan}}</td>
+                          <td>{{hist.Tanggal_Penggunaan}}</td>
+                          <td>{{hist.Waktu_Mulai}}</td>
+                          <td>{{hist.Waktu_Selesai}}</td>
+                          <td>{{hist.status}}</td>
+                          <td>{{hist.Keterangan}}</td>
+                          <td><a href="{% url 'delete' hist.id %}">Batalkan</a></td>
+                          <td><a href="{% url 'update' hist.id %}">update</a></td>
+                      </tr>
+                    {%endfor%}
                 </tbody>
             </table>
         </div>

@@ -4,8 +4,12 @@ from django.db import models
 
 class Reservasi(models.Model):
     idRuangan = models.CharField(max_length=200)
+    Name = models.CharField(max_length=200)
+    Email = models.EmailField()
+    Purpose = models.TextField()
     Tanggal_Pengajuan = models.DateTimeField(auto_now_add=True)
-    Tanggal_Penggunaan = models.DateField()
+    Tanggal_Penggunaan_Mulai = models.DateField()
+    Tanggal_Penggunaan_Selesai = models.DateField()
     Waktu_Mulai = models.TimeField()
     Waktu_Selesai = models.TimeField()
     status_choices = [

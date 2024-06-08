@@ -1,35 +1,38 @@
 from django.shortcuts import render, HttpResponseRedirect
-from .forms import Reservasi_form
+
 from .models import Reservasi
 from Room.models import Room
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
 
 
-def index(request, room_id):
+def index(request):
     admins = User.objects.filter(is_superuser=True)
     email_admin = [admin.email for admin in admins]
-    
+    room_id = request.POST.get('reservation_id')
     data = {
         'idRuangan': room_id
     }
     if request.method == 'POST': 
-        form_reservasi = Reservasi_form(request.POST)
-        if form_reservasi.is_valid():  # Check if form is valid
-            idRuangan = form_reservasi.cleaned_data.get('idRuangan')
-            tanggal_pengajuan = form_reservasi.cleaned_data.get('Tanggal_Pengajuan')
-            tanggal_penggunaan = form_reservasi.cleaned_data.get('Tanggal_Penggunaan')
-            Nama_Peminjam = form_reservasi.cleaned_data.get('Nama_Peminjam')
-            Waktu_Mulai = form_reservasi.cleaned_data.get('Waktu_Mulai')
-            Waktu_Selesai = form_reservasi.cleaned_data.get('Waktu_Selesai')
-            
+            idRuangan = request.POST.get('reservation_id')
+            tanggal_pengajuan = request.POST.get('Tanggal_Pengajuan')
+            tanggal_penggunaan_mulai = request.POST.get('end_date')
+            tanggal_penggunaan_selesai = request.POST.get('start_date')
+            Nama_Peminjam = request.POST.get('borrower_name')
+            Waktu_Mulai = request.POST.get('start_time')
+            Waktu_Selesai = request.POST.get('end_time')
+            Email = request.POST.get('email')
+            Purpose =request.POST.get('purpose')
             Reservasi.objects.create(
                 idRuangan=idRuangan,
                 Nama_Peminjam= Nama_Peminjam, 
                 Tanggal_Pengajuan=tanggal_pengajuan,
-                Tanggal_Penggunaan=tanggal_penggunaan,
+                Tanggal_Penggunaan_Mulai=tanggal_penggunaan_mulai,
+                Tanggal_Penggunaan_Selesai=tanggal_penggunaan_selesai,
                 Waktu_Mulai=Waktu_Mulai,
-                Waktu_Selesai= Waktu_Selesai
+                Waktu_Selesai= Waktu_Selesai,
+                Email = Email,
+                Purpose = Purpose
             )
             send_mail(
                 "PENGAJUAN RUANGAN",
@@ -40,12 +43,10 @@ def index(request, room_id):
             )
       
             return HttpResponseRedirect('/History/')  # Redirect to History page after successfully creating reservation
-    else:
-        form_reservasi = Reservasi_form(initial=data)  # Initialize form if request method is not POST
     
     context = {
         'page_title': 'Reservasi',
-        'form_reservasi': form_reservasi,
+        
     }
     return render(request, 'Reservation/reservasi.html', context)
 

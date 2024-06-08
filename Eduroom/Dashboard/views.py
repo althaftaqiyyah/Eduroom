@@ -13,6 +13,7 @@ def index(request):
         "title" : "Eduroom",
         "nav": [
             ["/History","History Reservasi"],
+            ["/Dashboard", "Room"],
         ],
         "profile": user_profile
     }

@@ -1,0 +1,317 @@
+:root {
+    --primary: #eeeeee;
+    --secondary: #227c70;
+    --green: #82cd47;
+    --secondary-light: rgb(34, 124, 112, 0.2);
+    --secondary-light-2: rgb(127, 183, 126, 0.1);
+    --black: #393e46;
+    --white: #F4F2EF;
+    --light-blue: #94B6EF;
+    --blue: #213E60;
+    --peach: #DFAEA1;
+    --muted-pink: #895159;
+  
+    --shadow: 0px 2px 8px 0px var(--secondary-light);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  html{
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    height: 100vh;
+    width: 100%;
+    background-color: var(--white);
+    margin: 0; 
+    padding: 0; 
+  }
+
+/*nav*/
+.navbar {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    background-color: var(--blue);
+    padding: 0 8%;
+    box-shadow: var(--shadow);
+  
+  }
+  
+  .navbar-logo {
+    cursor: pointer;
+    width: 100px;
+    max-width: 100%;
+    height: auto;
+    flex-shrink: 0;
+  }
+  
+  .navbar-list {
+    width: 100%;
+    text-align: right;
+    padding-right: 2rem;
+  }
+  
+  .navbar-list li {
+    display: inline-block;
+    margin: 0 1rem;
+  }
+  
+  .navbar-list li a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--white);
+    text-decoration: none;
+    padding: 6px 15px;
+    border-radius: 20px;
+  }
+  
+  .navbar-list li a:hover {
+    background: var(--white);
+    color: var(--blue);
+  }
+  
+  .profile-dropdown {
+    position: relative;
+    width: fit-content;
+  }
+  
+  .profile-dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    width: 150px;
+    border-radius: 50px;
+    color: var(--white);
+    /* background-color: white;
+    box-shadow: var(--shadow); */
+  
+    cursor: pointer;
+    border: 1px solid var(--white);
+    transition: box-shadow 0.2s ease-in, background-color 0.2s ease-in, border 0.3s;
+  }
+  
+  .profile-dropdown-btn:hover {
+    background-color: var(--light-blue);
+    box-shadow: var(--shadow);
+  }
+  
+  .profile-img {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: url(image/profile.png);
+    background-size: cover;
+  }
+  
+  .profile-img i {
+    position: absolute;
+    right: 0;
+    bottom: 0.3rem;
+    font-size: 0.5rem;
+    color: var(--peach);
+  }
+  
+  .profile-dropdown-btn span {
+    margin: 0 0.5rem;
+    margin-right: 0;
+  }
+  
+  .profile-dropdown-list {
+    position: absolute;
+    top: 68px;
+    width: 220px;
+    right: 0;
+    background-color: var(--blue);
+    border-radius: 10px;
+    max-height: 0;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: max-height 0.5s;
+    z-index: 999;
+  }
+  
+  .profile-dropdown-list hr {
+    border: 0.5px solid var(--white);
+  }
+  
+  .profile-dropdown-list.active {
+    max-height: 500px;
+  }
+  
+  .profile-dropdown-list-item {
+    padding: 0.5rem 0rem 0.5rem 1rem;
+    transition: background-color 0.2s ease-in, padding-left 0.2s;
+  }
+  
+  .profile-dropdown-list-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+  
+  .profile-dropdown-list-item a i {
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    background-color: var(--white);
+    color: var(--light-blue);
+    line-height: 2.3rem;
+    text-align: center;
+    margin-right: 1rem;
+    border-radius: 50%;
+    transition: margin-right 0.3s;
+  }
+  
+  .profile-dropdown-list-item:hover {
+    padding-left: 1.5rem;
+    background-color: var(--light-blue);
+  }
+
+  /*table*/
+  .container {
+    display: flex;
+    align-items: center;
+    background-color: var(--blue);
+    border-radius: 8px;
+    box-shadow: 8px 4px 8px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+    overflow: hidden;
+}
+
+/* Container untuk tabel dengan jarak dari tepi halaman */
+.table {
+    max-width: 1200px; /* Batas lebar tabel */
+    margin: 20px auto; /* Tengah-tengah dan memberi jarak vertikal */
+    padding: 0 20px; /* Jarak horizontal */
+    padding-bottom: 15px;
+}
+
+/* Judul tabel */
+.table h1 {
+    text-align: center; /* Tengah-tengah judul */
+    margin-bottom: 20px; /* Jarak bawah judul */
+    color: var(--white);
+}
+
+/* Mengatur gaya tabel */
+#reservationTable {
+    width: 100%;
+    border-collapse: collapse; /* Menggabungkan border sel */
+    margin-top: 10px; /* Jarak atas tabel */
+}
+
+/* Border untuk tabel, header, dan cell */
+#reservationTable, #reservationTable th, #reservationTable td {
+    border: 1px solid #ccc;
+}
+
+/* Mengatur padding dan text-align untuk header */
+#reservationTable th {
+    padding: 10px;
+    text-align: left;
+    background-color: var(--light-blue); /* Warna latar belakang header */
+    color: var(--blue); /* Warna teks header */
+}
+
+/* Mengatur padding dan text-align untuk cell */
+#reservationTable td {
+    padding: 10px;
+    text-align: left;
+}
+
+/* Mengatur warna selang-seling tiap baris */
+#reservationTable tbody tr:nth-child(odd) {
+    background-color: var(--white); /* Warna putih untuk baris ganjil */
+}
+
+#reservationTable tbody tr:nth-child(even) {
+    background-color: #D6EBF2; /* Warna biru terang untuk baris genap */
+}
+
+
+.custom-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+}
+
+.custom-button-danger {
+  background-color: #d9534f;
+}
+
+.custom-button-primary {
+  background-color: #0275d8;
+}
+
+.custom-button:hover {
+  opacity: 0.8;
+}
+
+.alert {
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-dismissible .close {
+  position: relative;
+  top: -0.5rem;
+  right: -1rem;
+  color: inherit;
+}
+
+.close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+}
+
+.close:hover {
+  color: black;
+  opacity: .7;
+  text-decoration: none;
+}
+
+.fade {
+  transition: opacity .15s linear;
+  -webkit-transition: opacity .15s linear;
+  -moz-transition: opacity .15s linear;
+  -o-transition: opacity .15s linear;
+}
+
+.fade.show {
+  opacity: 1;
+}

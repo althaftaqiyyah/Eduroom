@@ -70,22 +70,16 @@
         </div>
         <div class="right">
             <div class="room-info">
-                <h3>RK U 1.01</h3>
-                <p><strong>Room ID:</strong> G6-701</p>
-                <p><strong>Location:</strong> FMIPA Building, Wing 5, Level 2</p>
-                <p><strong>Maximum capacity:</strong> 15 people</p>
-                <p><strong>Facilities:</strong></p>
-                <ul>
-                    <li>3 tables</li>
-                    <li>9 chairs</li>
-                    <li>whiteboard</li>
-                    <li>full AC</li>
-                    <li>projector</li>
-                    <li>projector screen</li>
-                </ul>
+                {%for detail in detailRuangan%}
+                  <h3>{{detail.NamaRuangan}}</h3>
+                  <p><strong>Room ID:</strong> {{detail.IdRuangan}}</p>
+                  <p><strong>Location:</strong> {{detail.Lokasi}}</p>
+                  <p><strong>Maximum capacity:</strong> {{detail.Kapasitas}} people</p>
+    
+                {%endfor%}
                 <p><strong>Availability:</strong></p>
                 <ul>
-                    <li>Monday - Thursday: 9 AM - 9 PM</li>
+                    <li>Monday - Tuesday: 9 AM - 9 PM</li>
                     <li>Friday: 8 AM - 6 PM</li>
                     <li>Closed on national holidays</li>
                 </ul>
@@ -149,16 +143,23 @@
     <div class="table-container">
       <table id="reservationTable">
           <thead>
-              <tr>
-                  <th>Booking Time</th>
-                  <th>Reservation ID</th>
-                  <th>Start Time</th>
-                  <th>End Time</th>
-                  <th>Status</th>
-              </tr>
+            <tr>
+                <th>Tanggal Pengajuan</th>
+                <th>Tanggal Penggunaan</th>
+                <th>Waktu Mulai</th>
+                <th>Waktu Selesai</th>                                  
+            </tr>
           </thead>
           <tbody>
               <!-- Rows will be added here -->
+              {%for his_room in historyRuangan %}
+              <tr>            
+                  <td>{{his_room.Tanggal_Pengajuan}}</td>
+                  <td>{{his_room.Tanggal_Penggunaan}}</td>
+                  <td>{{his_room.Waktu_Mulai}}</td>
+                  <td>{{his_room.Waktu_Selesai}}</td>          
+              </tr>
+              {%endfor%}
           </tbody>
       </table>
   </div>

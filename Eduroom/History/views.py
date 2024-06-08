@@ -1,17 +1,24 @@
 from django.shortcuts import render, redirect
 from Reservation.models import Reservasi
-from Reservation.forms import Reservasi_form
 from Room.models import Room
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from User.models import user as User_Profile
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 # Create your views here.
-
+@login_required
 def index(request):
     detail_history = Reservasi.objects.all()
-    
+    user_profile = User_Profile.objects.filter(NIM__icontains=request.user).first()
     context = {
         "title" : "Eduroom",
-        "history": detail_history
+        "history": detail_history,
+        "nav": [
+            ["/History","History Reservasi"],
+            ["/Dashboard", "Room"],
+        ],
+        "profile": user_profile
     }
     return render(request, "History/index.html", context)
 
@@ -43,11 +50,9 @@ def update(request, room_id):
         
     }
     if history_update.status == "Belum diproses": 
-        form_reservasi = Reservasi_form(request.POST or None, initial=data, instance = history_update)
+        #form_reservasi = Reservasi_form(request.POST or None, initial=data, instance = history_update)
         if request.method == 'POST':
-            if form_reservasi.is_valid():
-                form_reservasi.save()
-                send_mail(
+            send_mail(
                 "PERUBAHAN PENGAJUAN RUANGAN",
                 f"Atas nama {history_update.Nama_Peminjam} telah merubah pengajuan peminjaman ruangan {history_update.idRuangan}, silahkan dilakukan pengecekkan",
                 "ilkom734@gmail.com",
@@ -56,12 +61,9 @@ def update(request, room_id):
             )
             return redirect('/History/')
         
-        context = {
-            'form_reservasi': form_reservasi
-            }
-        return render(request, 'Reservation/reservasi.html', context)
+       
+        return render(request, 'Reservation/reservasi.html')
     else : 
-        context ={
-            'status': history_update.status
-        }
-        return render(request, "History/notUpdate.html", context)
+        messages.error(request, f'Status anda telah {history_update.status}, Pengajuan tidak bisa diubah')
+        
+        return redirect('/History/')
