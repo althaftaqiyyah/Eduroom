@@ -32,6 +32,20 @@ function updateButtonState() {
 }
 
 
+function openPopup() {
+    console.log("openPopup called");
+    document.getElementById('popup').classList.add('open-popup');
+    document.getElementById('overlay').classList.add('open-popup');
+    clearForm(); // Clear the form fields when opening the popup
+}
+
+function closePopup() {
+    console.log("closePopup called");
+    document.getElementById('popup').classList.remove('open-popup');
+    document.getElementById('overlay').classList.remove('open-popup');
+}
+
+
 
 
 function submitForm() {

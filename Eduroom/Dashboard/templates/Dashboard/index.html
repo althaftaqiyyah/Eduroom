@@ -46,7 +46,13 @@
         <div class="profile-dropdown">
             <div onclick="toggle()" class="profile-dropdown-btn">
                 <div class="profile-img" >
-                    <img class="profile-img" src="{{ profile.profile_picture.url }}" alt="Profile Picture" />
+                    {% if profile.profile_picture %}
+                        <img class="profile-img" src="{{ profile.profile_picture.url }}" alt="Profile Picture" />
+                    {% else %}
+                        <img class="profile-img" src="/media/profile_pictures/profile.png" alt="Default Profile Picture" />
+                    {% endif %}
+                    <i class="fa-solid fa-circle"></i>
+                    
                     <i class="fa-solid fa-circle"></i>
                 </div>
 
@@ -144,10 +150,7 @@
                             <div class="more">
                                 <a class="read-more" href="{% url 'detailRuangan' %}?IdRuangan={{ ruangan.IdRuangan }}">Read More</a>
                                 
-                                <div class="icon-links">
-                                    <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
-                                    
-                                </div>
+                             
                             </div>
                         </div>
                     </div>
@@ -169,10 +172,7 @@
                             <div class="more">
                                 <a class="read-more" href="{% url 'detailRuangan' %}?IdRuangan={{ ruangan.IdRuangan }}">Read More</a>
                                 
-                                <div class="icon-links">
-                                    <a href="#" data-link="https://kampusmerdeka.kemdikbud.go.id/"><i class="fa fa-paperclip"></i></a>
-                                    
-                                </div>
+                                
                             </div>
                         </div>
                     </div>

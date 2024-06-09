@@ -14,6 +14,7 @@ def index(request):
         'idRuangan': room_id
     }
     if request.method == 'POST': 
+        
             idRuangan = request.POST.get('reservation_id')
             tanggal_pengajuan = request.POST.get('Tanggal_Pengajuan')
             tanggal_penggunaan_mulai = request.POST.get('end_date')
@@ -24,6 +25,7 @@ def index(request):
             Email = request.POST.get('email')
             Purpose =request.POST.get('purpose')
             Reservasi.objects.create(
+                NIM = request.user,
                 idRuangan=idRuangan,
                 Nama_Peminjam= Nama_Peminjam, 
                 Tanggal_Pengajuan=tanggal_pengajuan,

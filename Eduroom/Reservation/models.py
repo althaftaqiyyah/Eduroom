@@ -4,6 +4,7 @@ from django.db import models
 
 class Reservasi(models.Model):
     idRuangan = models.CharField(max_length=200)
+    NIM = models.CharField(max_length=200)
     Name = models.CharField(max_length=200)
     Email = models.EmailField()
     Purpose = models.TextField()
@@ -22,5 +23,5 @@ class Reservasi(models.Model):
     Keterangan = models.CharField(max_length=500, default='-')
     Nama_Peminjam= models.CharField(max_length=200)
     def __str__(self):
-        return "{} | {}".format(self.idRuangan, self.Tanggal_Penggunaan)
+        return "{} | {}".format(self.idRuangan, self.Tanggal_Penggunaan_Mulai)
     

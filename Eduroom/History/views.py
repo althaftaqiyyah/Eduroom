@@ -9,7 +9,7 @@ from django.contrib import messages
 # Create your views here.
 @login_required
 def index(request):
-    detail_history = Reservasi.objects.all()
+    detail_history = Reservasi.objects.filter(NIM=request.user)
     user_profile = User_Profile.objects.filter(NIM__icontains=request.user).first()
     context = {
         "title" : "Eduroom",
@@ -39,19 +39,28 @@ def delete(request, room_id):
     return redirect("/History/")
 
 def update(request, room_id):
-    
+    id = room_id
     history_update = Reservasi.objects.get(id = room_id)
     admins = User.objects.filter(is_superuser=True)
     email_admin = [admin.email for admin in admins]
     data = {
         'ID Ruangan': history_update.idRuangan,
-        'Tanggal Pengajuan': history_update.Tanggal_Pengajuan,
-        'Tanggal Penggunaan': history_update.Tanggal_Penggunaan
+        'History': history_update,
+        'id': id,
         
     }
-    if history_update.status == "Belum diproses": 
-        #form_reservasi = Reservasi_form(request.POST or None, initial=data, instance = history_update)
+    
+    if history_update.status == "Belum diproses":
         if request.method == 'POST':
+            history_update.Nama_Peminjam =request.POST.get("borrower_name")
+            history_update.idRuangan = request.POST.get("reservation_id")
+            history_update.Email = request.POST.get("email")
+            history_update.Purpose = request.POST.get("purpose")
+            history_update.Tanggal_Penggunaan_Mulai= request.POST.get("start_date")
+            history_update.Tanggal_Penggunaan_Selesai = request.POST.get("end_date")
+            history_update.Waktu_Mulai = request.POST.get("start_time")
+            history_update.Waktu_Selesai = request.POST.get("end_time")
+            history_update.save()
             send_mail(
                 "PERUBAHAN PENGAJUAN RUANGAN",
                 f"Atas nama {history_update.Nama_Peminjam} telah merubah pengajuan peminjaman ruangan {history_update.idRuangan}, silahkan dilakukan pengecekkan",
@@ -60,10 +69,16 @@ def update(request, room_id):
                 fail_silently=False
             )
             return redirect('/History/')
-        
-       
-        return render(request, 'Reservation/reservasi.html')
-    else : 
+        else:
+           
+            context = {
+                'History': history_update,
+                'show_popup': True
+            }
+            return render(request, 'History/update.html', context)
+    else:
         messages.error(request, f'Status anda telah {history_update.status}, Pengajuan tidak bisa diubah')
-        
-        return redirect('/History/')
+        return redirect("/History/")
+   
+  
+   

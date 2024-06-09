@@ -315,3 +315,198 @@
 .fade.show {
   opacity: 1;
 }
+
+
+/* Popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  padding: 5px; /* Adjusted padding */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 640px;
+  text-align: center;
+}
+
+/* Heading styling */
+.popup h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: var(--blue);
+}
+
+/* Button styling */
+.popup button {
+  margin: 10px 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+
+
+/*button*/
+.reserve {
+  text-align: center;
+  margin-top: -40px;
+  z-index: 99;
+}
+
+.btn-reserving {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--secondary);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.btn-reserving:hover {
+  background-color: var(--green);
+}
+
+
+/* Popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  padding: 5px; /* Adjusted padding */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 640px;
+  text-align: center;
+}
+
+/* Overlay to darken the background */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Show popup and overlay when open-popup class is added */
+.open-popup {
+  display: block;
+}
+
+
+/* Form container */
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  margin-right: 40px;
+  padding: 20px; /* Tambahkan padding */
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Gaya untuk label */
+.form-container label {
+  width: 30%;
+  text-align: right;
+  margin-right: 10px;
+  font-weight: bold; /* Tambahkan ketebalan font */
+}
+
+/* Gaya untuk input */
+.form-container input[type="text"],
+.form-container input[type="datetime-local"],
+.form-container input[type="date"],
+.form-container input[type="time"] {
+  width: 65%;
+  padding: 8px;
+  border: 1px solid #ccc; /* Tambahkan border */
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px; /* Beri jarak antara input */
+}
+
+
+/* Button styling */
+.popup-button {
+  margin-top: -10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-align: center; /* Mengatur justifikasi tengah khusus untuk button */
+}
+
+
+/*date & time form*/
+.datetime-container {
+  display: flex;
+  justify-content: space-between; /* Menyusun input secara horizontal */
+  width: 100%;
+}
+
+.datetime-container .datetime-input {
+  flex: 1;
+  display: flex;
+  align-items: center; /* Untuk membuat label dan input di tengah secara vertikal */
+}
+
+.datetime-container .datetime-input label {
+  margin-right: 10px;
+  flex-basis: 50%; /* Menyesuaikan lebar label */
+  text-align: right; /* Mengatur label ke kanan */
+}
+
+.datetime-container .datetime-input input {
+  flex: 1;
+}
+
+
+/* Specific button styles */
+.button-book {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.button-book:hover {
+  background-color: var(--green);
+}
+
+.button-cancel {
+  background-color: var(--muted-pink);
+  color: white;
+}
+
+.button-cancel:hover {
+  background-color: var(--peach);
+}
+
+/* Overlay to darken the background */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
