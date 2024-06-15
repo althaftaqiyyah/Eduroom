@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Reservasi(models.Model):
@@ -25,3 +25,8 @@ class Reservasi(models.Model):
     def __str__(self):
         return "{} | {}".format(self.idRuangan, self.Tanggal_Penggunaan_Mulai)
     
+    def reserve(self, request):
+        admins = User.objects.filter(is_superuser=True)
+        email_admin = [admin.email for admin in admins]
+        room_id = request.POST.get('reservation_id')
+        return email_admin, room_id

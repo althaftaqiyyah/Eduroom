@@ -3,9 +3,10 @@ from .models import Room
 from .forms import createRoom, PencarianForm
 from Reservation.models import Reservasi
 from User.models import user as User_Profile
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
+@login_required
 def index(request):
     ruangan  = Room.objects.all() 
     context ={
@@ -36,7 +37,7 @@ def detailRuangan(request):
         return HttpResponse("Parameter IdRuangan tidak ditemukan")
 
 """
-
+@login_required
 def detailRuangan(request):
     IdRuangan = request.GET.get('IdRuangan')
     user_profile = User_Profile.objects.filter(NIM__icontains=request.user).first()

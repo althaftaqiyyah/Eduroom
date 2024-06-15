@@ -6,6 +6,7 @@ from django.contrib.auth import login , authenticate
 from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
 from django.contrib import messages
+import re 
 
 def index(request):
     context ={
@@ -38,31 +39,38 @@ def user_login(request):
 def register(request):
     if request.method == 'POST':
         password = request.POST.get('Password')
+        confirm_password = request.POST.get('confirm')
         email = request.POST.get('Email')
-        nama = request.POST.get('Nama')
+        nama = request.POST.get('Nama')         
         nim = request.POST.get('NIM')
         
+        if not re.match(r'^[a-zA-Z\s]+$', nama.strip()):
+            messages.error(request, 'Please enter the right format for Name')
+            return redirect("/login/")
         try:
-            # Buat objek UserProfile dan simpan ke database
-            user_profile = userProfile.objects.create(
-                Email=email,
-                Password=make_password(password),
-                Nama=nama,
-                NIM=nim,
-            )
-            
-            
-            user = User.objects.create_user(username=nim, password=password,first_name=nama )
-        
+            if password == confirm_password:
+                # Buat objek UserProfile dan simpan ke database
+                user_profile = userProfile.objects.create(
+                        Email=email,
+                        Password=make_password(password),
+                        Nama=nama,
+                        NIM=nim,
+                )
+                    
+                    
+                user = User.objects.create_user(username=nim, password=password,first_name=nama )
+            else : 
+                messages.error(request, "Masukkan konfirmasi password yang sesuai")
+                return redirect("/login/")
         except IntegrityError as e:
-            
+                
             if 'UNIQUE constraint failed: User_user.NIM' in str(e):
-                
-                messages.error(request, 'NIM yang anda masukkan telah terdaftar')
-                
-                return redirect('/login/')
+                    
+                    messages.error(request, 'NIM yang anda masukkan telah terdaftar')
+                    
+                    return redirect('/login/')
             else:
-                raise e
+                    raise e
         
     username_login = request.POST.get('NIM')
     password_login = request.POST.get('Password')

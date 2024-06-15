@@ -48,3 +48,19 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Password successfully updated');
     });
 });
+
+function previewFile() {
+    var preview = document.getElementById('profile_picture_preview');
+    var file = document.getElementById('file-input').files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function() {
+        preview.src = reader.result;
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+    }
+}

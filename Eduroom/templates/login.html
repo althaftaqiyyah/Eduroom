@@ -76,14 +76,14 @@
                 {% csrf_token %}
                 <h1>Create Account</h1>
                 <p>use your email for registration</p>
-                <input type="email" name="Email" placeholder="Email" required="">
-                <input type="text" name="Nama" placeholder="Name" required="">
-                <input type="nim" name="NIM" placeholder="SID" required="">
-                <input type="password" name="Password" placeholder="Password" required="" oninput="return validate()">
+                <input type="email" name="Email" placeholder="Email" required>
+                <input type="text" name="Nama" placeholder="Name" required>
+                <input type="nim" name="NIM" placeholder="SID" required>
+                <input type="password" name="Password" placeholder="Password" oninput="return validate()" required>
                 <div class="errors">
                     <li id="length"> atleast 8 characters</li>
                 </div>
-                <input type="password" name="confirm" id="confirmPassword" placeholder="Confirm Password" required="" oninput="validatePassword()">
+                <input type="password" name="confirm" id="confirmPassword" placeholder="Confirm Password"  oninput="validatePassword()" required>
                 <button>Sign Up</button>
             </form>
         </div>

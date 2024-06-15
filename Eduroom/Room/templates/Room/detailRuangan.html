@@ -12,9 +12,53 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     />
     <link rel="stylesheet" href="{%static 'css/roomStyle.css' %}" />
+    <style>
+      .popup_erorr {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: var(--light-blue);
+          color: var(--blue);
+          padding: 15px;
+          border: 1px solid var(--blue);
+          border-radius: 5px;
+          box-shadow: var(--shadow);
+          z-index: 1000;
+          display: none;
+      }
+
+      .popup_erorr .close {
+          margin-left: 10px;
+          cursor: pointer;
+      }
+    </style>
+
     <title>Document</title>
 </head>
 <body>
+    {% if messages %}
+      <div class="messages">
+          {% for message in messages %}
+              <div class="popup_erorr" id="popup{{ forloop.counter }}">
+                  {{ message }}
+                  <span class="close" onclick="closePopup({{ forloop.counter }})">&times;</span>
+              </div>
+              <script>
+                  setTimeout(function() {
+                      document.getElementById('popup{{ forloop.counter }}').style.display = 'block';
+                  }, 1000); // Delay before showing the popup
+
+                  setTimeout(function() {
+                      closePopup({{ forloop.counter }});
+                  }, 6000); // Automatically close after 5 seconds
+
+                  function closePopup(id) {
+                      document.getElementById('popup_erorr' + id).style.display = 'none';
+                  }
+              </script>
+          {% endfor %}
+      </div>
+    {% endif %}
     <header>
         <nav class="navbar">
             <img src="{%static 'img/logo2.png'%}" class="navbar-logo" alt="logo" />
@@ -90,36 +134,36 @@
               <div class="form-container">
                   
                   <label for="reservation_id">Room ID:</label>
-                  <input type="text" name="reservation_id" id="reservation_id" value="{{detailRuangan.IdRuangan}}" ><br><br>
+                  <input type="text" name="reservation_id" id="reservation_id" value="{{detailRuangan.IdRuangan}}" required><br><br>
               
                   <label for="borrower_name">Name:</label>
-                  <input type="text" name="borrower_name" id="borrower_name"><br><br>
+                  <input type="text" name="borrower_name" id="borrower_name" required><br><br>
               
                   <label for="email">Email Address:</label>
-                  <input type="text" name="email" id="email"><br><br>
+                  <input type="text" name="email" id="email" required><br><br>
               
                   <label for="purpose">Purpose:</label>
-                  <input type="text" name="purpose" id="purpose"><br><br>
+                  <input type="text" name="purpose" id="purpose" required><br><br>
               
                   <div class="datetime-container">
                       <div class="datetime-input">
                           <label for="start_date">Start Date:</label>
-                          <input type="date" name="start_date" id="start_date">
+                          <input type="date" name="start_date" id="start_date" required>
                       </div>
                       <div class="datetime-input">
                           <label for="start_time">Start Time:</label>
-                          <input type="time" name="start_time" id="start_time">
+                          <input type="time" name="start_time" id="start_time"required>
                       </div>
                   </div><br><br>
               
                   <div class="datetime-container">
                       <div class="datetime-input">
                           <label for="end_date">End Date:</label>
-                          <input type="date" name="end_date" id="end_date">
+                          <input type="date" name="end_date" id="end_date" required>
                       </div>
                       <div class="datetime-input">
                           <label for="end_time">End Time:</label>
-                          <input type="time" name="end_time" id="end_time">
+                          <input type="time" name="end_time" id="end_time"required>
                       </div>
                   </div><br><br>
               </div>

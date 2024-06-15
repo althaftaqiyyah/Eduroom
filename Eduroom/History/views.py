@@ -6,10 +6,11 @@ from django.contrib.auth.models import User
 from User.models import user as User_Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import History
 # Create your views here.
 @login_required
 def index(request):
-    detail_history = Reservasi.objects.filter(NIM=request.user)
+    detail_history = Reservasi.objects.filter(NIM=request.user).order_by("-Tanggal_Pengajuan")
     user_profile = User_Profile.objects.filter(NIM__icontains=request.user).first()
     context = {
         "title" : "Eduroom",
@@ -22,12 +23,12 @@ def index(request):
     }
     return render(request, "History/index.html", context)
 
+
+@login_required
 def delete(request, room_id):
-    Ruangan =  Reservasi.objects.get(id = room_id)
-    Reservasi.objects.filter(id = room_id).delete()
-    admins = User.objects.filter(is_superuser=True)
-    email_admin = [admin.email for admin in admins]
-    
+    history = History()
+
+    Ruangan, admins, email_admin  = history.delete_data(request, room_id)
     send_mail(
                 "PEMBATALAN PENGAJUAN RUANGAN",
                 f"Atas nama {Ruangan.Nama_Peminjam} telah membatalkan peminjaman ruangan {Ruangan.idRuangan}, silahkan dilakukan pengecekkan",
@@ -35,21 +36,14 @@ def delete(request, room_id):
                 email_admin,
                 fail_silently=False
             )
-      
+    messages.success(request, "Reservasi berhasil dihapus")
     return redirect("/History/")
 
+
+@login_required
 def update(request, room_id):
-    id = room_id
-    history_update = Reservasi.objects.get(id = room_id)
-    admins = User.objects.filter(is_superuser=True)
-    email_admin = [admin.email for admin in admins]
-    data = {
-        'ID Ruangan': history_update.idRuangan,
-        'History': history_update,
-        'id': id,
-        
-    }
-    
+    history = History()
+    id, history_update, admins, email_admin, data= history.update(request, room_id)
     if history_update.status == "Belum diproses":
         if request.method == 'POST':
             history_update.Nama_Peminjam =request.POST.get("borrower_name")
@@ -68,9 +62,10 @@ def update(request, room_id):
                 email_admin,
                 fail_silently=False
             )
+            messages.success(request, "Reservasi berhasil diubah")
             return redirect('/History/')
         else:
-           
+            
             context = {
                 'History': history_update,
                 'show_popup': True
@@ -79,6 +74,4 @@ def update(request, room_id):
     else:
         messages.error(request, f'Status anda telah {history_update.status}, Pengajuan tidak bisa diubah')
         return redirect("/History/")
-   
-  
    

@@ -20,16 +20,7 @@ def index(request):
 @login_required
 def update_profile_(request):
     if request.method == 'POST':
-        current_password = request.POST.get("current_password")
-        new_password = request.POST.get("new_password")
-        repeat_new_password = request.POST.get('repeat_new_password')
-        Nama_ = request.POST.get('Nama')
-        NIM_ = request.POST.get('NIM')
-        Email_ = request.POST.get("Email")
-        profile_picture_ = request.FILES.get("profile_picture")
-        user_ = request.user
-        print(profile_picture_)
-        
+        current_password, new_password, repeat_new_password, Nama_, NIM_, Email_, profile_picture_, user_ = User_Profile().update_profile(request)         
         user_profile = User_Profile.objects.filter(NIM=user_.username).first()
         
         if not user_profile:
@@ -78,8 +69,7 @@ def update_profile_(request):
 @login_required
 def reset_image(request):
     try:
-        defaultImage = "/profile_pictures/profile.png"
-        user_profile = User_Profile.objects.filter(NIM__icontains=request.user).first()
+        defaultImage, user_profile = User_Profile().reset_images(request)         
         user_profile.profile_picture = defaultImage
         user_profile.save()
         return redirect("/User")

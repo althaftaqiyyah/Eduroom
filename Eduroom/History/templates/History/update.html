@@ -1,68 +1,68 @@
-{% load static %}
+    {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservation Form</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/updateStyle.css' %}">
-</head>
-<body>
-    <div class="reserve">
-        <div class="popup" id="popup">
-            <form method="POST">
-                {% csrf_token %}
-                <h2>Update Reservation Form</h2>
-                <div class="form-container">
-                    <label for="reservation_id">Room ID:</label>
-                    <input type="text" name="reservation_id" id="reservation_id" value="{{ History.idRuangan }}"><br>
-                
-                    <label for="borrower_name">Name:</label>
-                    <input type="text" name="borrower_name" id="borrower_name" value="{{ History.Nama_Peminjam }}"><br>
-                
-                    <label for="email">Email Address:</label>
-                    <input type="text" name="email" id="email" value="{{ History.Email }}"><br>
-                
-                    <label for="purpose">Purpose:</label>
-                    <input type="text" name="purpose" id="purpose" value="{{ History.Purpose }}"><br>
-                
-                    <div class="datetime-container">
-                        <div class="datetime-input">
-                            <label for="start_date">Start Date:</label>
-                            <input type="date" name="start_date" id="start_date" value="{{ History.Tanggal_Peminjaman_Mulai }}">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reservation Form</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'css/updateStyle.css' %}">
+    </head>
+    <body>
+        <div class="reserve">
+            <div class="popup" id="popup">
+                <form method="POST">
+                    {% csrf_token %}
+                    <h2>Update Reservation Form</h2>
+                    <div class="form-container">
+                        <label for="reservation_id">Room ID:</label>
+                        <input type="text" name="reservation_id" id="reservation_id" value="{{ History.idRuangan }}" required><br>
+                    
+                        <label for="borrower_name">Name:</label>
+                        <input type="text" name="borrower_name" id="borrower_name" value="{{ History.Nama_Peminjam }}" required><br>
+                    
+                        <label for="email">Email Address:</label>
+                        <input type="text" name="email" id="email" value="{{ History.Email }}" required><br>
+                    
+                        <label for="purpose">Purpose:</label>
+                        <input type="text" name="purpose" id="purpose" value="{{ History.Purpose }}" required><br>
+                    
+                        <div class="datetime-container">
+                            <div class="datetime-input">
+                                <label for="start_date">Start Date:</label>
+                                <input type="date" name="start_date" id="start_date" value="{{ History.Tanggal_Peminjaman_Mulai }}" required>
+                            </div>
+                            <div class="datetime-input">
+                                <label for="start_time">Start Time:</label>
+                                <input type="time" name="start_time" id="start_time" value="{{ History.Waktu_Mulai }}" required>
+                            </div>
                         </div>
-                        <div class="datetime-input">
-                            <label for="start_time">Start Time:</label>
-                            <input type="time" name="start_time" id="start_time" value="{{ History.Waktu_Mulai }}">
+                    
+                        <div class="datetime-container">
+                            <div class="datetime-input">
+                                <label for="end_date">End Date:</label>
+                                <input type="date" name="end_date" id="end_date" value="{{ History.Tanggal_Peminjaman_Selesai }}" required>
+                            </div>
+                            <div class="datetime-input">
+                                <label for="end_time">End Time:</label>
+                                <input type="time" name="end_time" id="end_time" value="{{ History.Waktu_Selesai }}" required>
+                            </div>
+
                         </div>
                     </div>
-                
-                    <div class="datetime-container">
-                        <div class="datetime-input">
-                            <label for="end_date">End Date:</label>
-                            <input type="date" name="end_date" id="end_date" value="{{ History.Tanggal_Peminjaman_Selesai }}">
-                        </div>
-                        <div class="datetime-input">
-                            <label for="end_time">End Time:</label>
-                            <input type="time" name="end_time" id="end_time" value="{{ History.Waktu_Selesai }}">
-                        </div>
-
+                    
+                    
+                    <div class="popup-button">
+                        <button type="submit" class="button-book">Book</button>
+                        <button type="button" onclick="location.href='/History/'" class="button-cancel">Cancel</button>
                     </div>
-                </div>
-                
-                
-                <div class="popup-button">
-                    <button type="submit" class="button-book">Book</button>
-                    <button type="button" onclick="location.href='/History/'" class="button-cancel">Cancel</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 
-</body>
-</html>
+    </body>
+    </html>
