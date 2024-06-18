@@ -9,7 +9,7 @@ P2 KELOMPOK 4
 |  | Nama  | NIM | Role |
 | - | ------------- | ------------- | -
 | 1 | Andika Risky Sururi  | G6401211046 | PM, Backend Developer |
-| 2 | Althaf Nawadir Taqiyyah  | G640121107  | System Analyst |
+| 2 | Althaf Nawadir Taqiyyah  | G640121107  | System Analyst, DevOps |
 | 3 | Nabila Elora Rasyda  | G6401211005 |  Front End Developer, UI Desaigner|
 | 4 | Angela Prima Lie | G6401201096 | UI Designer, QA  |
 
